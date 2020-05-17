@@ -20,7 +20,6 @@ public class ProdutoDTO {
 	}
 
 	public ProdutoDTO(Integer id, String nome, String descricao, Integer quantidade, BigDecimal preco) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
