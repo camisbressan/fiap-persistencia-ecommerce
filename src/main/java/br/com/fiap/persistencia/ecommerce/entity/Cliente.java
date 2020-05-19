@@ -1,9 +1,10 @@
 package br.com.fiap.persistencia.ecommerce.entity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,11 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.CreateClienteDTO;
+import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente implements Serializable {
+
+	private static final long serialVersionUID = 1999741452929037399L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,19 +34,47 @@ public class Cliente {
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "ddd")
+	private Integer ddd;
+
 	@Column(name = "telefone")
-	private Integer telefone;
+	private Long telefone;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+//	@JsonManagedReference
+//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
-	public Cliente() {	}
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+	private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
+
+	public Cliente() {
+	}
+
 	public Cliente(CreateClienteDTO createClienteDTO) {
 		this.nome = createClienteDTO.getNome();
 		this.email = createClienteDTO.getEmail();
+		this.ddd = createClienteDTO.getDdd();
 		this.telefone = createClienteDTO.getTelefone();
-		//this.enderecos = createClienteDTO.getEnderecos();
+		this.enderecos = converterEnderecos(createClienteDTO.getEnderecos());
+	}
+	
+	public Cliente(ClienteDTO clienteDTO) {
+		this.id = clienteDTO.getId();
+		this.nome = clienteDTO.getNome();
+		this.email = clienteDTO.getEmail();
+		this.ddd = clienteDTO.getDdd();
+		this.telefone = clienteDTO.getTelefone();
+		this.enderecos = converterEnderecos(clienteDTO.getEnderecos());
+	}
+	
+	
+	private Set<Endereco> converterEnderecos(List<EnderecoDTO> listEndereco){
+		Set<Endereco> listaEnd = new LinkedHashSet<Endereco>();
+		for (EnderecoDTO endereco : listEndereco) {
+			Endereco dto = new Endereco(endereco);
+			listaEnd.add(dto);
+		}
+		return listaEnd;
 	}
 
 	public Integer getId() {
@@ -68,20 +101,29 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public Integer getTelefone() {
+	public Integer getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(Integer ddd) {
+		this.ddd = ddd;
+	}
+
+	public Long getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
 
-	public List<Endereco> getEnderecos() {
+	public Set<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
+	public void setEnderecos(Set<Endereco> enderecos) {
+
 		this.enderecos = enderecos;
 	}
-	
+
 }

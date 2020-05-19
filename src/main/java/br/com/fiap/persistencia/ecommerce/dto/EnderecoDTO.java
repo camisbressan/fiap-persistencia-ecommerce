@@ -6,28 +6,28 @@ public class EnderecoDTO {
 
 	private Integer id;
 
-	private ClienteDTO cliente; 
-	
 	private String logradouro;
-	
-	private String numero;
-	
-	private String complemento;
-	
-	private String bairro;
-	
-	private String cidade;
-	
-	private String estado;
-	
-	private Integer cep;
 
-	public EnderecoDTO() {}
-	
-	public EnderecoDTO(Integer id, ClienteDTO cliente, String logradouro, String numero, String complemento, String bairro,
-			String cidade, String estado, Integer cep) {
+	private String numero;
+
+	private String complemento;
+
+	private String bairro;
+
+	private String cidade;
+
+	private String estado;
+
+	private String cep;
+
+	private ClienteDTO cliente;
+
+	public EnderecoDTO() {
+	}
+
+	public EnderecoDTO(Integer id, String logradouro, String numero, String complemento, String bairro, String cidade,
+			String estado, String cep, ClienteDTO cliente) {
 		this.id = id;
-		this.cliente = cliente;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
@@ -35,11 +35,11 @@ public class EnderecoDTO {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
+		this.cliente = cliente;
 	}
 
 	public EnderecoDTO(CreateEnderecoDTO enderecoDTO, Integer id) {
 		this.id = id;
-		this.cliente = enderecoDTO.getCliente();
 		this.logradouro = enderecoDTO.getLogradouro();
 		this.numero = enderecoDTO.getNumero();
 		this.complemento = enderecoDTO.getComplemento();
@@ -47,11 +47,11 @@ public class EnderecoDTO {
 		this.cidade = enderecoDTO.getCidade();
 		this.estado = enderecoDTO.getEstado();
 		this.cep = enderecoDTO.getCep();
+		this.cliente = enderecoDTO.getCliente();
 	}
-	
+
 	public EnderecoDTO(Endereco endereco) {
 		this.id = endereco.getId();
-		//this.cliente = endereco.getCliente();
 		this.logradouro = endereco.getLogradouro();
 		this.numero = endereco.getNumero();
 		this.complemento = endereco.getComplemento();
@@ -59,22 +59,15 @@ public class EnderecoDTO {
 		this.cidade = endereco.getCidade();
 		this.estado = endereco.getEstado();
 		this.cep = endereco.getCep();
+		this.cliente = new ClienteDTO(endereco.getCliente());
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public ClienteDTO getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteDTO cliente) {
-		this.cliente = cliente;
 	}
 
 	public String getLogradouro() {
@@ -125,12 +118,20 @@ public class EnderecoDTO {
 		this.estado = estado;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+
+	public ClienteDTO getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteDTO cliente) {
+		this.cliente = cliente;
+	}
+
 }

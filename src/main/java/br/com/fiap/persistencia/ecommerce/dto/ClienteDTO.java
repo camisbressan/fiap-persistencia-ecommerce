@@ -1,8 +1,11 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
+import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 
 public class ClienteDTO {
 
@@ -12,35 +15,53 @@ public class ClienteDTO {
 
 	private String email;
 
-	private Integer telefone;
+	private Integer ddd;
+
+	private Long telefone;
+
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+//	@JsonManagedReference
+//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
 	private List<EnderecoDTO> enderecos;
 
-	public ClienteDTO() {}
-	
-	public ClienteDTO(Integer id, String nome, String email, Integer telefone, List<EnderecoDTO> enderecos) {
+	public ClienteDTO() {
+	}
+
+	public ClienteDTO(Integer id, String nome, String email, Integer ddd, Long telefone, List<EnderecoDTO> enderecos) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		this.ddd = ddd;
 		this.telefone = telefone;
 		this.enderecos = enderecos;
 	}
-	
-	public ClienteDTO(CreateClienteDTO clienteDTO, Integer id) {
+
+	public ClienteDTO(CreateClienteDTO createClienteDTO, Integer id) {
 		this.id = id;
-		this.nome = clienteDTO.getNome();
-		this.email = clienteDTO.getEmail();
-		this.telefone = clienteDTO.getTelefone();
-		this.enderecos = clienteDTO.getEnderecos();
+		this.nome = createClienteDTO.getNome();
+		this.email = createClienteDTO.getEmail();
+		this.ddd = createClienteDTO.getDdd();
+		this.telefone = createClienteDTO.getTelefone();
+		this.enderecos = createClienteDTO.getEnderecos();
 	}
 
-	
 	public ClienteDTO(Cliente cliente) {
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();
 		this.email = cliente.getEmail();
+		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
-		//this.enderecos = cliente.getEnderecos();
+		this.enderecos = converterEnderecos(cliente.getEnderecos());
+	}
+
+	private List<EnderecoDTO> converterEnderecos(Set<Endereco> setEndereco){
+		List<EnderecoDTO> listaEnd = new ArrayList<EnderecoDTO>();
+		for (Endereco endereco : setEndereco) {
+			EnderecoDTO dto = new EnderecoDTO(endereco);
+			listaEnd.add(dto);
+		}
+		return listaEnd;
 	}
 	
 	public Integer getId() {
@@ -67,11 +88,19 @@ public class ClienteDTO {
 		this.email = email;
 	}
 
-	public Integer getTelefone() {
+	public Integer getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(Integer ddd) {
+		this.ddd = ddd;
+	}
+
+	public Long getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
 
@@ -82,5 +111,5 @@ public class ClienteDTO {
 	public void setEnderecos(List<EnderecoDTO> enderecos) {
 		this.enderecos = enderecos;
 	}
-	
+
 }

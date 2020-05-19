@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.persistencia.ecommerce.dto.CreateProdutoDTO;
 import br.com.fiap.persistencia.ecommerce.dto.ProdutoDTO;
-import br.com.fiap.persistencia.ecommerce.service.ProdutoService;
+import br.com.fiap.persistencia.ecommerce.service.IProdutoService;
 
 @RestController
 @RequestMapping("/v1/produtos")
 public class ProdutoController {
 	
-	private final ProdutoService service;
+	private final IProdutoService service;
 
-	public ProdutoController(ProdutoService service) {
+	public ProdutoController(IProdutoService service) {
 		this.service = service;
 	}
 

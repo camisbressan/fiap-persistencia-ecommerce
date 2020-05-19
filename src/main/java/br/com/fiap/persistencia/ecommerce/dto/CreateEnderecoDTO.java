@@ -2,29 +2,21 @@ package br.com.fiap.persistencia.ecommerce.dto;
 
 public class CreateEnderecoDTO {
 
-	private ClienteDTO cliente; 
-	
 	private String logradouro;
-	
+
 	private String numero;
-	
+
 	private String complemento;
-	
+
 	private String bairro;
-	
+
 	private String cidade;
-	
+
 	private String estado;
-	
-	private Integer cep;
 
-	public ClienteDTO getCliente() {
-		return cliente;
-	}
+	private String cep;
 
-	public void setCliente(ClienteDTO cliente) {
-		this.cliente = cliente;
-	}
+	private ClienteDTO cliente;
 
 	public String getLogradouro() {
 		return logradouro;
@@ -74,12 +66,20 @@ public class CreateEnderecoDTO {
 		this.estado = estado;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+
+	public ClienteDTO getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteDTO cliente) {
+		this.cliente = cliente;
+	}
+
 }

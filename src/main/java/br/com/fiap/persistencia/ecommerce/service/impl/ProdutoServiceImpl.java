@@ -12,10 +12,10 @@ import br.com.fiap.persistencia.ecommerce.dto.CreateProdutoDTO;
 import br.com.fiap.persistencia.ecommerce.dto.ProdutoDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Produto;
 import br.com.fiap.persistencia.ecommerce.repository.ProdutoRepository;
-import br.com.fiap.persistencia.ecommerce.service.ProdutoService;
+import br.com.fiap.persistencia.ecommerce.service.IProdutoService;
 
 @Service
-public class ProdutoServiceImpl implements ProdutoService {
+public class ProdutoServiceImpl implements IProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;

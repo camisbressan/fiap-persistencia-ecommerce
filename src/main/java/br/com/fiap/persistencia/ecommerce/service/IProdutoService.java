@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.fiap.persistencia.ecommerce.dto.CreateProdutoDTO;
 import br.com.fiap.persistencia.ecommerce.dto.ProdutoDTO;
 
-public interface ProdutoService {
+public interface IProdutoService {
 
 	List<ProdutoDTO> findAll();
 
