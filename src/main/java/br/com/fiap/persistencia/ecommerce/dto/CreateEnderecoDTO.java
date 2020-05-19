@@ -1,19 +1,34 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateEnderecoDTO {
 
+	@NotNull
+	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String logradouro;
 
+	@NotNull
+	@Size(min = 1, max = 20, message = "Obrigatório no minimo 1 caracter e no maximo 20.")
 	private String numero;
 
+	@Size(max = 45, message = "Limite máximo de 45 caracteres.")
 	private String complemento;
 
+	@Size(max = 100, message = "Limite máximo de 100 caracteres.")
 	private String bairro;
 
+	@NotNull
+	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String cidade;
 
+	@NotNull
+	@Size(min = 2, max = 50, message = "Obrigatório no minimo 2 caracteres e no maximo 50.")
 	private String estado;
 
+	@NotNull
+	@Size(min = 8, max = 8, message = "Obrigatório no minimo 8 dígitos.")
 	private String cep;
 
 	private ClienteDTO cliente;

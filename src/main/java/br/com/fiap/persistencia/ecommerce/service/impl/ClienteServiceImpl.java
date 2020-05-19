@@ -1,12 +1,13 @@
 package br.com.fiap.persistencia.ecommerce.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.repository.ClienteRepository;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;
@@ -19,12 +20,16 @@ public class ClienteServiceImpl  implements IClienteService{
 	
 	@Override
 //	@Cacheable(value= "allClientesCache", unless= "#result.size() == 0")	
-	public List<Cliente> findAll() {
-		List<Cliente> list = new ArrayList<>();
-		clienteRepository.findAll().forEach(e -> list.add(e));
-		return list;
+//	public List<Cliente> findAll() {
+//		List<Cliente> list = new ArrayList<>();
+//		clienteRepository.findAll().forEach(e -> list.add(e));
+//		return list;
+//	}
+	public List<ClienteDTO> findAll() {
+		List<Cliente> clienteList = clienteRepository.findAll();
+		return clienteList.stream().map(ClienteDTO::new).collect(Collectors.toList());
 	}
-
+	
 	@Override	
 //	@Cacheable(value= "clienteCache", key= "#id")	
 	public Cliente findById(Integer id) {

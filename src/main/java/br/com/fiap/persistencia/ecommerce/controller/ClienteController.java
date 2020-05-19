@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;
@@ -50,12 +51,15 @@ public class ClienteController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> findAll() {
-		List<Cliente> clienteList = clienteService.findAll();
-		return new ResponseEntity<List<Cliente>>(clienteList,
-				clienteList.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+//	public ResponseEntity<List<Cliente>> findAll() {
+//		List<Cliente> clienteList = clienteService.findAll();
+//		return new ResponseEntity<List<Cliente>>(clienteList,
+//				clienteList.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+//	}
+	public ResponseEntity<List<ClienteDTO>> findAll() {
+		return ResponseEntity.ok(clienteService.findAll());
 	}
-
+	
 	@PostMapping
 	public ResponseEntity<Cliente> create(@RequestBody Cliente cliente, UriComponentsBuilder builder) {
 		return ResponseEntity.ok(clienteService.create(cliente));

@@ -2,25 +2,22 @@ package br.com.fiap.persistencia.ecommerce.dto;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CreateClienteDTO {
 
 	@NotNull
-	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 letras e no maximo 100.")
-	@Column(name = "nome", length = 100, nullable = false)
+	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String nome;
 
-	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 letras e no maximo 100.")
-	@Column(name = "email")
+	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String email;
 
-	@Column(name = "ddd", length = 2, nullable = true)
+	@Size(max = 2, message = "Limite máximo de 2 dígitos.")
 	private Integer ddd;
 
-	@Column(name = "telefone", length = 9, nullable = true)
+	@Size(max = 9, message = "Limite máximo de 9 dígitos.")
 	private Long telefone;
 
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")

@@ -1,10 +1,10 @@
 package br.com.fiap.persistencia.ecommerce.entity;
 
 import java.io.Serializable;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,8 +44,8 @@ public class Cliente implements Serializable {
 //	@JsonManagedReference
 //	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
-	private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+	private List<Endereco> enderecos;
 
 	public Cliente() {
 	}
@@ -68,8 +68,8 @@ public class Cliente implements Serializable {
 	}
 	
 	
-	private Set<Endereco> converterEnderecos(List<EnderecoDTO> listEndereco){
-		Set<Endereco> listaEnd = new LinkedHashSet<Endereco>();
+	private List<Endereco> converterEnderecos(List<EnderecoDTO> listEndereco){
+		List<Endereco> listaEnd = new ArrayList<Endereco>();
 		for (EnderecoDTO endereco : listEndereco) {
 			Endereco dto = new Endereco(endereco);
 			listaEnd.add(dto);
@@ -117,12 +117,11 @@ public class Cliente implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Set<Endereco> getEnderecos() {
+	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(Set<Endereco> enderecos) {
-
+	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
 

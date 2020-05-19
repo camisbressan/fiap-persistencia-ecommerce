@@ -1,5 +1,7 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 
 public class EnderecoDTO {
@@ -20,6 +22,7 @@ public class EnderecoDTO {
 
 	private String cep;
 
+	@JsonInclude(JsonInclude.Include.NON_NULL) 
 	private ClienteDTO cliente;
 
 	public EnderecoDTO() {

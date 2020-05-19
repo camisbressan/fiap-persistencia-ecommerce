@@ -2,7 +2,6 @@ package br.com.fiap.persistencia.ecommerce.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
@@ -55,15 +54,27 @@ public class ClienteDTO {
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
 	}
 
-	private List<EnderecoDTO> converterEnderecos(Set<Endereco> setEndereco){
-		List<EnderecoDTO> listaEnd = new ArrayList<EnderecoDTO>();
-		for (Endereco endereco : setEndereco) {
-			EnderecoDTO dto = new EnderecoDTO(endereco);
-			listaEnd.add(dto);
+	private List<EnderecoDTO> converterEnderecos(List<Endereco> setEndereco) {
+		if (setEndereco.size() > 0) {
+			List<EnderecoDTO> listaEnd = new ArrayList<EnderecoDTO>();
+			for (Endereco endereco : setEndereco) {
+				EnderecoDTO dto = new EnderecoDTO();
+				dto.setId(endereco.getId());				
+				dto.setLogradouro(endereco.getLogradouro());
+				dto.setNumero(endereco.getNumero());
+				dto.setComplemento(endereco.getComplemento());
+				dto.setBairro(endereco.getBairro());
+				dto.setCidade(endereco.getCidade());
+				dto.setEstado(endereco.getEstado());
+				dto.setCep(endereco.getCep());
+				listaEnd.add(dto);
+			}
+			return listaEnd;
+		} else {
+			return new ArrayList<EnderecoDTO>();
 		}
-		return listaEnd;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
