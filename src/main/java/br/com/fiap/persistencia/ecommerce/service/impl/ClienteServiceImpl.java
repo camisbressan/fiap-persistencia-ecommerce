@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
+import br.com.fiap.persistencia.ecommerce.dto.LoginDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.repository.ClienteRepository;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;
@@ -60,6 +61,11 @@ public class ClienteServiceImpl implements IClienteService {
 //	)
 	public void delete(Integer id) {
 		clienteRepository.delete(clienteRepository.findById(id).get());
+	}
+
+	@Override
+	public ClienteDTO login(LoginDTO login) {
+		return new ClienteDTO(clienteRepository.findClienteByLogin(login.getEmail(), login.getSenha()));
 	}
 
 }

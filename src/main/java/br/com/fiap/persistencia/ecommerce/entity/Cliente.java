@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.CreateClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
@@ -36,6 +34,9 @@ public class Cliente implements Serializable {
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "senha")
+	private String senha;
+	
 	@Column(name = "ddd")
 	private Integer ddd;
 
@@ -55,6 +56,7 @@ public class Cliente implements Serializable {
 	public Cliente(CreateClienteDTO createClienteDTO) {
 		this.nome = createClienteDTO.getNome();
 		this.email = createClienteDTO.getEmail();
+		this.senha = createClienteDTO.getSenha();
 		this.ddd = createClienteDTO.getDdd();
 		this.telefone = createClienteDTO.getTelefone();
 	}
@@ -63,6 +65,7 @@ public class Cliente implements Serializable {
 		this.id = clienteDTO.getId();
 		this.nome = clienteDTO.getNome();
 		this.email = clienteDTO.getEmail();
+		this.senha = clienteDTO.getSenha();
 		this.ddd = clienteDTO.getDdd();
 		this.telefone = clienteDTO.getTelefone();
 		this.enderecos = converterEnderecos(clienteDTO.getEnderecos());
@@ -105,6 +108,14 @@ public class Cliente implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Integer getDdd() {

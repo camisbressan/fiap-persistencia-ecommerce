@@ -3,6 +3,7 @@ package br.com.fiap.persistencia.ecommerce.service;
 import java.util.List;
 
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
+import br.com.fiap.persistencia.ecommerce.dto.LoginDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 
 public interface IClienteService {
@@ -16,4 +17,6 @@ public interface IClienteService {
 	Cliente update(Cliente cliente);
 
 	void delete(Integer id);
+	
+	ClienteDTO login(LoginDTO login);
 }

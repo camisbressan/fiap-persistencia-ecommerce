@@ -13,6 +13,8 @@ public class CreateClienteDTO {
 
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String email;
+	
+	private String senha;
 
 	private Integer ddd;
 
@@ -38,6 +40,14 @@ public class CreateClienteDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Integer getDdd() {

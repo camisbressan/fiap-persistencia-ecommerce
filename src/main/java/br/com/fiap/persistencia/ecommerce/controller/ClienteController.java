@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
+import br.com.fiap.persistencia.ecommerce.dto.LoginDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;
@@ -27,7 +28,7 @@ import br.com.fiap.persistencia.ecommerce.service.IEnderecoService;
 @RestController
 @RequestMapping("/v1/clientes")
 public class ClienteController {
-	
+
 	@Autowired
 	private IClienteService clienteService;
 
@@ -45,20 +46,20 @@ public class ClienteController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
-        return ResponseEntity.ok(clienteService.findById(id));
+		return ResponseEntity.ok(clienteService.findById(id));
 	}
 
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		return ResponseEntity.ok(clienteService.findAll());
 	}
-	
+
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public ResponseEntity<Cliente> create(@RequestBody Cliente cliente, UriComponentsBuilder builder) {
 		return ResponseEntity.ok(clienteService.create(cliente));
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Cliente> update(@RequestBody Cliente cliente) {
 		return ResponseEntity.ok(clienteService.update(cliente));
@@ -68,6 +69,11 @@ public class ClienteController {
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Integer id) {
 		clienteService.delete(id);
+	}
+
+	@GetMapping("login")
+	public ResponseEntity<ClienteDTO> login(@RequestBody LoginDTO loginDTO) {
+		return ResponseEntity.ok(clienteService.login(loginDTO));
 	}
 
 	/**
@@ -80,7 +86,6 @@ public class ClienteController {
 	public ResponseEntity<List<EnderecoDTO>> findAllEnderecoCliente(@PathVariable Integer id) {
 		return ResponseEntity.ok(enderecoService.findAllByCliente(id));
 	};
-	
 
 	@PostMapping("{id}/enderecos")
 	public ResponseEntity<Void> adicionarEnderecoCliente(@PathVariable Integer id, @RequestBody Endereco endereco,
@@ -116,11 +121,9 @@ public class ClienteController {
 
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("{id}/enderecos/{endId}")
-	public void deletarEnderecoCliente(@PathVariable("id") Integer id,
-			@PathVariable("endId") Integer endId) {
+	public void deletarEnderecoCliente(@PathVariable("id") Integer id, @PathVariable("endId") Integer endId) {
 		enderecoService.delete(endId);
 	}
-	
 
 	/**
 	 * 

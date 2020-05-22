@@ -14,6 +14,8 @@ public class ClienteDTO {
 	private String nome;
 
 	private String email;
+	
+	private String senha;
 
 	private Integer ddd;
 
@@ -39,6 +41,7 @@ public class ClienteDTO {
 		this.id = id;
 		this.nome = createClienteDTO.getNome();
 		this.email = createClienteDTO.getEmail();
+		this.senha = createClienteDTO.getSenha();
 		this.ddd = createClienteDTO.getDdd();
 		this.telefone = createClienteDTO.getTelefone();
 		this.enderecos = createClienteDTO.getEnderecos();
@@ -48,6 +51,7 @@ public class ClienteDTO {
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();
 		this.email = cliente.getEmail();
+		this.senha = cliente.getSenha();
 		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
@@ -98,6 +102,14 @@ public class ClienteDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Integer getDdd() {
