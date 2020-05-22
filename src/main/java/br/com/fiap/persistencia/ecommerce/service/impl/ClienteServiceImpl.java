@@ -1,7 +1,6 @@
 package br.com.fiap.persistencia.ecommerce.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
-import br.com.fiap.persistencia.ecommerce.dto.ProdutoDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.repository.ClienteRepository;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;

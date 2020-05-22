@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.CreateClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
@@ -40,9 +42,9 @@ public class Cliente implements Serializable {
 	@Column(name = "telefone")
 	private Long telefone;
 
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-//	@JsonManagedReference
-//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+	//@JsonManagedReference
+	private List<Pedido> pedidos;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Endereco> enderecos;
@@ -129,4 +131,12 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 }

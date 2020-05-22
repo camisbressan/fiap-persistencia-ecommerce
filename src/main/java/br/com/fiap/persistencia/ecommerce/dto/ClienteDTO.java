@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
+import br.com.fiap.persistencia.ecommerce.entity.Pedido;
 
 public class ClienteDTO {
 
@@ -18,9 +19,7 @@ public class ClienteDTO {
 
 	private Long telefone;
 
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-//	@JsonManagedReference
-//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
+	private List<Pedido> pedidos;
 
 	private List<EnderecoDTO> enderecos;
 
@@ -52,6 +51,7 @@ public class ClienteDTO {
 		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
+		this.pedidos = cliente.getPedidos();
 	}
 
 	private List<EnderecoDTO> converterEnderecos(List<Endereco> setEndereco) {
@@ -74,6 +74,7 @@ public class ClienteDTO {
 			return new ArrayList<EnderecoDTO>();
 		}
 	}
+	
 
 	public Integer getId() {
 		return id;
@@ -123,4 +124,12 @@ public class ClienteDTO {
 		this.enderecos = enderecos;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 }
