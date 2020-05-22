@@ -9,6 +9,40 @@
 			"name": "Cliente",
 			"item": [
 				{
+					"name": "Login Cliente",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"email@teste.com\",\n\t\"senha\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/clientes/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clientes",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Listar Clientes",
 					"request": {
 						"method": "GET",
@@ -62,7 +96,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nome\": \"João Pereira\",\n\t\"email\": \"email@teste.com\",\n\t\"ddd\": 11,\n\t\"telefone\": 988784433\n}"
+							"raw": "{\n\t\"nome\": \"João Pereira\",\n\t\"email\": \"email@teste.com\",\n\t\"senha\": \"12345678\",\n\t\"ddd\": 11,\n\t\"telefone\": 988784433\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/v1/clientes",
