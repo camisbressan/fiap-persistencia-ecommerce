@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
+import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;
@@ -42,38 +44,30 @@ public class ClienteController {
 	 */
 
 	@GetMapping("{id}")
-	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
-		Cliente cliente = clienteService.findById(id);
-		if (null != cliente) {
-			return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
-		}
-		return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok(clienteService.findById(id));
 	}
 
 	@GetMapping
-//	public ResponseEntity<List<Cliente>> findAll() {
-//		List<Cliente> clienteList = clienteService.findAll();
-//		return new ResponseEntity<List<Cliente>>(clienteList,
-//				clienteList.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
-//	}
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		return ResponseEntity.ok(clienteService.findAll());
 	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public ResponseEntity<Cliente> create(@RequestBody Cliente cliente, UriComponentsBuilder builder) {
 		return ResponseEntity.ok(clienteService.create(cliente));
 	}
-
+	
 	@PutMapping
 	public ResponseEntity<Cliente> update(@RequestBody Cliente cliente) {
 		return ResponseEntity.ok(clienteService.update(cliente));
 	}
 
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteCli(@PathVariable Integer id) {
+	public void delete(@PathVariable Integer id) {
 		clienteService.delete(id);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
 	/**
@@ -83,24 +77,19 @@ public class ClienteController {
 	 */
 
 	@GetMapping("{id}/enderecos")
-	public ResponseEntity<List<Endereco>> findAllEnderecoCliente(@PathVariable Integer id) {
-		Cliente clienteRetorno = clienteService.findById(id);
-		if (clienteRetorno == null) {
-			return new ResponseEntity<List<Endereco>>(HttpStatus.NOT_ACCEPTABLE);
-		}
-		List<Endereco> listaEnderecos = enderecoService.findAllByCliente(clienteRetorno);
-		return new ResponseEntity<List<Endereco>>(listaEnderecos,
-				listaEnderecos.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+	public ResponseEntity<List<EnderecoDTO>> findAllEnderecoCliente(@PathVariable Integer id) {
+		return ResponseEntity.ok(enderecoService.findAllByCliente(id));
 	};
+	
 
 	@PostMapping("{id}/enderecos")
 	public ResponseEntity<Void> adicionarEnderecoCliente(@PathVariable Integer id, @RequestBody Endereco endereco,
 			UriComponentsBuilder builder) {
-		Cliente clienteRetorno = clienteService.findById(id);
+		ClienteDTO clienteRetorno = clienteService.findById(id);
 		if (clienteRetorno == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
 		}
-		endereco.setCliente(clienteRetorno);
+		endereco.setCliente(new Cliente(clienteRetorno));
 		Endereco enderecoCriado = enderecoService.create(endereco);
 		if (enderecoCriado != null) {
 			HttpHeaders headers = new HttpHeaders();
@@ -111,48 +100,27 @@ public class ClienteController {
 		return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
 	}
 
-	@GetMapping("{id}/enderecos/{endId}")
-	public ResponseEntity<Endereco> findEnderecoCliente(@PathVariable("id") Integer id,
-			@PathVariable("endId") Integer endId, @RequestBody Endereco endereco) {
-		Cliente clienteRetorno = clienteService.findById(id);
-		if (clienteRetorno == null) {
-			return new ResponseEntity<Endereco>(HttpStatus.NOT_ACCEPTABLE);
-		}
-		Endereco enderecoRetorno = enderecoService.findByIdCliente(clienteRetorno, endId);
-		if (enderecoRetorno != null) {
-			return new ResponseEntity<Endereco>(enderecoRetorno, HttpStatus.OK);
-		}
-		return new ResponseEntity<Endereco>(HttpStatus.NO_CONTENT);
-	}
-
 	@PutMapping("{id}/enderecos/{endId}")
 	public ResponseEntity<Endereco> updateEnderecoCliente(@PathVariable("id") Integer id,
 			@PathVariable("endId") Integer endId, @RequestBody Endereco endereco) {
-		Cliente clienteRetorno = clienteService.findById(id);
+		ClienteDTO clienteRetorno = clienteService.findById(id);
 		if (clienteRetorno == null) {
 			return new ResponseEntity<Endereco>(HttpStatus.NOT_ACCEPTABLE);
 		}
-		Endereco enderecoCriado = enderecoService.update(endereco);
-		if (enderecoCriado != null) {
-			return new ResponseEntity<Endereco>(enderecoCriado, HttpStatus.OK);
+		Endereco enderecoAlterado = enderecoService.update(endereco);
+		if (enderecoAlterado != null) {
+			return new ResponseEntity<Endereco>(enderecoAlterado, HttpStatus.OK);
 		}
 		return new ResponseEntity<Endereco>(HttpStatus.NO_CONTENT);
 	}
 
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("{id}/enderecos/{endId}")
-	public ResponseEntity<Void> deletarEnderecoCliente(@PathVariable("id") Integer id,
+	public void deletarEnderecoCliente(@PathVariable("id") Integer id,
 			@PathVariable("endId") Integer endId) {
-		Cliente clienteRetorno = clienteService.findById(id);
-		if (clienteRetorno == null) {
-			return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
-		}
-		Endereco enderecoCriado = enderecoService.findByIdCliente(clienteRetorno, endId);
-		if (enderecoCriado == null) {
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		}
-		enderecoService.delete(enderecoCriado);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		enderecoService.delete(endId);
 	}
+	
 
 	/**
 	 * 

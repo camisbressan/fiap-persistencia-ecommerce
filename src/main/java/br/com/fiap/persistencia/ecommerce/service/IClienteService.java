@@ -7,10 +7,9 @@ import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 
 public interface IClienteService {
 	
-//	List<Cliente> findAll();
 	List<ClienteDTO> findAll();
 	
-	Cliente findById(Integer id);
+	ClienteDTO findById(Integer id);
 
 	Cliente create(Cliente cliente);
 

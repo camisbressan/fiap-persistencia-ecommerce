@@ -1,12 +1,12 @@
 package br.com.fiap.persistencia.ecommerce.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.persistencia.ecommerce.entity.Cliente;
+import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 import br.com.fiap.persistencia.ecommerce.repository.EnderecoRepository;
 import br.com.fiap.persistencia.ecommerce.service.IEnderecoService;
@@ -19,18 +19,16 @@ public class EnderecoServiceImpl implements IEnderecoService {
 
 	@Override
 //	@Cacheable(value= "allEnderecosCache", unless= "#result.size() == 0")
-	public List<Endereco> findAll() {
-		List<Endereco> list = new ArrayList<>();
-		enderecoRepository.findAll().forEach(e -> list.add(e));
-		return list;
+	public List<EnderecoDTO> findAll() {
+		List<Endereco> endList = enderecoRepository.findAll();
+		return endList.stream().map(EnderecoDTO::new).collect(Collectors.toList());
 	}
 	
 	@Override
 //	@Cacheable(value= "allClienteEnderecosCache", key= "#cliente.id", unless= "#result.size() == 0")
-	public List<Endereco> findAllByCliente(Cliente cliente) {
-		List<Endereco> list = new ArrayList<>();
-		enderecoRepository.findAllByClienteId(cliente.getId()).forEach(e -> list.add(e));
-		return list;
+	public List<EnderecoDTO> findAllByCliente(Integer idCliente) {
+		List<Endereco> endList = enderecoRepository.findAll();
+		return endList.stream().map(EnderecoDTO::new).collect(Collectors.toList());
 	}
 
 	@Override
@@ -41,8 +39,9 @@ public class EnderecoServiceImpl implements IEnderecoService {
 	
 	@Override
 //	@Cacheable(value= "enderecoCache", key= "#id")
-	public Endereco findByIdCliente(Cliente cliente, Integer id) {
-		return enderecoRepository.findEnderecoByClienteId(cliente.getId(), id);
+	public EnderecoDTO findByIdCliente(Integer idCliente, Integer id) {
+		return new EnderecoDTO(
+				enderecoRepository.findEnderecoByClienteId(idCliente, id));
 	}
 
 	@Override	
@@ -80,7 +79,7 @@ public class EnderecoServiceImpl implements IEnderecoService {
 //			@CacheEvict(value= "allEnderecosCache", allEntries= true)
 //		}
 //	)
-	public void delete(Endereco endereco) {
-		enderecoRepository.delete(endereco);	
+	public void delete(Integer id) {
+		enderecoRepository.delete(enderecoRepository.findById(id).get());
 	}
 }

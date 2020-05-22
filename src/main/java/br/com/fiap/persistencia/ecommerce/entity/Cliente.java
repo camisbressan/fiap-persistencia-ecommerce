@@ -55,7 +55,6 @@ public class Cliente implements Serializable {
 		this.email = createClienteDTO.getEmail();
 		this.ddd = createClienteDTO.getDdd();
 		this.telefone = createClienteDTO.getTelefone();
-		this.enderecos = converterEnderecos(createClienteDTO.getEnderecos());
 	}
 	
 	public Cliente(ClienteDTO clienteDTO) {
@@ -69,12 +68,17 @@ public class Cliente implements Serializable {
 	
 	
 	private List<Endereco> converterEnderecos(List<EnderecoDTO> listEndereco){
-		List<Endereco> listaEnd = new ArrayList<Endereco>();
-		for (EnderecoDTO endereco : listEndereco) {
-			Endereco dto = new Endereco(endereco);
-			listaEnd.add(dto);
+		if(listEndereco.size() > 0) {
+			List<Endereco> listaEnd = new ArrayList<Endereco>();
+			for (EnderecoDTO endereco : listEndereco) {
+				Endereco dto = new Endereco(endereco);
+				listaEnd.add(dto);
+			}
+			return listaEnd;
+		}else {
+			return new ArrayList<Endereco>();
 		}
-		return listaEnd;
+
 	}
 
 	public Integer getId() {

@@ -14,10 +14,8 @@ public class CreateClienteDTO {
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String email;
 
-	@Size(max = 2, message = "Limite máximo de 2 dígitos.")
 	private Integer ddd;
 
-	@Size(max = 9, message = "Limite máximo de 9 dígitos.")
 	private Long telefone;
 
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
