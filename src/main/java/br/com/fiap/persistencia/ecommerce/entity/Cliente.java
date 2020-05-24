@@ -43,9 +43,9 @@ public class Cliente implements Serializable {
 	@Column(name = "telefone")
 	private Long telefone;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	//@JsonManagedReference
-	private List<Pedido> pedidos;
+	//private List<Pedido> pedidos;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Endereco> enderecos;
@@ -142,12 +142,12 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+//	public List<Pedido> getPedidos() {
+//		return pedidos;
+//	}
+//
+//	public void setPedidos(List<Pedido> pedidos) {
+//		this.pedidos = pedidos;
+//	}
 	
 }

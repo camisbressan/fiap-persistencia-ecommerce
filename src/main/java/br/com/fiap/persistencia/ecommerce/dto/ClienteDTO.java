@@ -21,7 +21,7 @@ public class ClienteDTO {
 
 	private Long telefone;
 
-	private List<Pedido> pedidos;
+	//private List<Pedido> pedidos;
 
 	private List<EnderecoDTO> enderecos;
 
@@ -55,7 +55,7 @@ public class ClienteDTO {
 		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
-		this.pedidos = cliente.getPedidos();
+		//this.pedidos = cliente.getPedidos();
 	}
 
 	private List<EnderecoDTO> converterEnderecos(List<Endereco> setEndereco) {
@@ -136,12 +136,12 @@ public class ClienteDTO {
 		this.enderecos = enderecos;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+//	public List<Pedido> getPedidos() {
+//		return pedidos;
+//	}
+//
+//	public void setPedidos(List<Pedido> pedidos) {
+//		this.pedidos = pedidos;
+//	}
 	
 }

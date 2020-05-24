@@ -301,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nome\": \"string\",\r\n  \"descricao\": \"string\",\r\n  \"quantidade\": 0,\r\n  \"preco\": 0\r\n}",
+							"raw": "{\r\n  \"nome\": \"produto 1\",\r\n  \"descricao\": \"produto para teste\",\r\n  \"quantidade\": 2,\r\n  \"preco\": 99.50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -329,7 +329,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/v1/produtos/2",
+							"raw": "http://localhost:8080/v1/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -338,7 +338,7 @@
 							"path": [
 								"v1",
 								"produtos",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -350,6 +350,38 @@
 		{
 			"name": "Pedido",
 			"item": [
+				{
+					"name": "Adicionar Pedido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"valorTotal\": 199.00,\r\n  \"itens\": [\r\n    {\r\n      \"produto\": {\r\n        \"id\": 1,\r\n        \"nome\": \"produto 1\",\r\n        \"descricao\": \"produto para teste\",\r\n        \"quantidade\": 2,\r\n        \"preco\": 99.50\r\n      },\r\n      \"quantidade\": 2\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/pedidos/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"pedidos",
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Listar Pedidos",
 					"request": {
@@ -392,22 +424,12 @@
 					"response": []
 				},
 				{
-					"name": "Adicionar Pedido",
+					"name": "Listar Pedido por Id Cliente",
 					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"valorTotal\": 100.00,\r\n  \"dataPedido\": \"2020-05-22T00:55:25.607Z\"\r\n}"
-						},
+						"method": "GET",
+						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/v1/pedidos/cliente/2",
+							"raw": "http://localhost:8080/v1/pedidos/cliente/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -417,7 +439,28 @@
 								"v1",
 								"pedidos",
 								"cliente",
-								"2"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Pedido",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/pedidos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"pedidos",
+								"1"
 							]
 						}
 					},

@@ -12,6 +12,9 @@ import br.com.fiap.persistencia.ecommerce.entity.Pedido;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
-	@Query("select p from Pedido p where p.cliente.id = :clienteId")
+//	@Query("select p from Pedido p where p.cliente.id = :clienteId")
+//	public List<Pedido> findPedidoByClienteId(@Param("clienteId") Integer clienteId);
+	
+	@Query("select p from Pedido p where p.idCliente = :clienteId")
 	public List<Pedido> findPedidoByClienteId(@Param("clienteId") Integer clienteId);
 }

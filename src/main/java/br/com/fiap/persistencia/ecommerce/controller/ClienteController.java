@@ -35,9 +35,6 @@ public class ClienteController {
 	@Autowired
 	private IEnderecoService enderecoService;
 
-//	@Autowired
-//	private IPedidoService pedidoServece;
-
 	/**
 	 * 
 	 * Métodos do Cliente
@@ -125,23 +122,4 @@ public class ClienteController {
 		enderecoService.delete(endId);
 	}
 
-	/**
-	 * 
-	 * Métodos de Pedido do Cliente
-	 * 
-	 */
-
-//	@GetMapping("{id}/pedidos")
-//	public ResponseEntity<List<Pedido>> getPedidoList(@PathVariable("id") int id) {
-//
-//		Cliente c = cliService.getById(id);
-//		if (c == null) {
-//			return new ResponseEntity<List<Pedido>>(HttpStatus.NOT_ACCEPTABLE);
-//		}
-//
-//		List<Pedido> l = pedidoServece.getAllByCliente(c);
-//
-//		return new ResponseEntity<List<Pedido>>(l, l.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
-//
-//	}
 }
