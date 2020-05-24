@@ -27,7 +27,7 @@ public class EnderecoServiceImpl implements IEnderecoService {
 	@Override
 //	@Cacheable(value= "allClienteEnderecosCache", key= "#cliente.id", unless= "#result.size() == 0")
 	public List<EnderecoDTO> findAllByCliente(Integer idCliente) {
-		List<Endereco> endList = enderecoRepository.findAll();
+		List<Endereco> endList = enderecoRepository.findAllByClienteId(idCliente);
 		return endList.stream().map(EnderecoDTO::new).collect(Collectors.toList());
 	}
 
