@@ -12,7 +12,9 @@ import br.com.fiap.persistencia.ecommerce.dto.ProdutoDTO;
 
 @Entity
 public class ItensCarrinho implements Serializable {
-	
+
+	private static final long serialVersionUID = 1830355156093629713L;
+
 	@Id
 	@ManyToOne
 	@JoinColumn

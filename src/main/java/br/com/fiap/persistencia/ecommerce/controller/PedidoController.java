@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.CreatePedidoDTO;
 import br.com.fiap.persistencia.ecommerce.dto.ItensCarrinhoDTO;
 import br.com.fiap.persistencia.ecommerce.dto.PedidoDTO;
 import br.com.fiap.persistencia.ecommerce.entity.ItensCarrinho;
 import br.com.fiap.persistencia.ecommerce.entity.Pedido;
-import br.com.fiap.persistencia.ecommerce.service.IClienteService;
 import br.com.fiap.persistencia.ecommerce.service.IPedidoService;
 import br.com.fiap.persistencia.ecommerce.service.IProdutoService;
 
@@ -32,9 +30,6 @@ public class PedidoController {
 
 	@Autowired
 	private IPedidoService pedidoService;
-
-	@Autowired
-	private IClienteService clienteService;
 
 	@Autowired
 	private IProdutoService prodService;
@@ -59,7 +54,6 @@ public class PedidoController {
 	@PostMapping("cliente/{id}")
 	public ResponseEntity<Pedido> create(@PathVariable Integer id, @RequestBody CreatePedidoDTO createPedidoDTO,
 			UriComponentsBuilder builder) {
-
 		for (ItensCarrinhoDTO itensDTO : createPedidoDTO.getItens()) {
 			pedidoService.create(new Pedido(id, createPedidoDTO.getValorTotal(), new Date(),
 					new ItensCarrinho(prodService.findById(itensDTO.getProduto().getId()), itensDTO.getQuantidade())));

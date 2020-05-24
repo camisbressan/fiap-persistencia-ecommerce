@@ -20,10 +20,6 @@ public class CreateClienteDTO {
 
 	private Long telefone;
 
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-//	@JsonManagedReference
-//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
-
 	private List<EnderecoDTO> enderecos;
 
 	public String getNome() {

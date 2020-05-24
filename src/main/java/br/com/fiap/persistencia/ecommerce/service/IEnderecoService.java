@@ -11,7 +11,7 @@ public interface IEnderecoService {
 	
 	List<EnderecoDTO> findAllByCliente(Integer idCliente);
 
-	Endereco findById(Integer id);
+	EnderecoDTO findById(Integer id);
 	
 	EnderecoDTO findByIdCliente(Integer idCliente, Integer id);
 

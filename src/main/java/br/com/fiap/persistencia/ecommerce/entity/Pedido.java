@@ -27,11 +27,6 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_cliente", nullable = false)
-//	@JsonBackReference
-//	private Cliente cliente;
-
 	@Column(name = "id_cliente")
 	private Integer idCliente;
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
-import br.com.fiap.persistencia.ecommerce.entity.Pedido;
 
 public class ClienteDTO {
 
@@ -14,14 +13,12 @@ public class ClienteDTO {
 	private String nome;
 
 	private String email;
-	
+
 	private String senha;
 
 	private Integer ddd;
 
 	private Long telefone;
-
-	//private List<Pedido> pedidos;
 
 	private List<EnderecoDTO> enderecos;
 
@@ -55,7 +52,7 @@ public class ClienteDTO {
 		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
-		//this.pedidos = cliente.getPedidos();
+		// this.pedidos = cliente.getPedidos();
 	}
 
 	private List<EnderecoDTO> converterEnderecos(List<Endereco> setEndereco) {
@@ -63,7 +60,7 @@ public class ClienteDTO {
 			List<EnderecoDTO> listaEnd = new ArrayList<EnderecoDTO>();
 			for (Endereco endereco : setEndereco) {
 				EnderecoDTO dto = new EnderecoDTO();
-				dto.setId(endereco.getId());				
+				dto.setId(endereco.getId());
 				dto.setLogradouro(endereco.getLogradouro());
 				dto.setNumero(endereco.getNumero());
 				dto.setComplemento(endereco.getComplemento());
@@ -78,7 +75,6 @@ public class ClienteDTO {
 			return new ArrayList<EnderecoDTO>();
 		}
 	}
-	
 
 	public Integer getId() {
 		return id;
@@ -136,12 +132,4 @@ public class ClienteDTO {
 		this.enderecos = enderecos;
 	}
 
-//	public List<Pedido> getPedidos() {
-//		return pedidos;
-//	}
-//
-//	public void setPedidos(List<Pedido> pedidos) {
-//		this.pedidos = pedidos;
-//	}
-	
 }

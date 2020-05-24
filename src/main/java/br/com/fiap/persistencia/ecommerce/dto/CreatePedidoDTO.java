@@ -11,7 +11,6 @@ public class CreatePedidoDTO {
 	private BigDecimal valorTotal;
 
 	private List<ItensCarrinhoDTO> itens = new ArrayList<ItensCarrinhoDTO>();
-
 	
 	public Integer getIdCliente() {
 		return idCliente;

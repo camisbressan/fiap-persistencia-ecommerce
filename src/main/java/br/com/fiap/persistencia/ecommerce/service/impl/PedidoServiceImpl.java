@@ -1,8 +1,6 @@
 package br.com.fiap.persistencia.ecommerce.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
-import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
 import br.com.fiap.persistencia.ecommerce.dto.PedidoDTO;
-import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 import br.com.fiap.persistencia.ecommerce.entity.Pedido;
 import br.com.fiap.persistencia.ecommerce.repository.PedidoRepository;
 import br.com.fiap.persistencia.ecommerce.service.IPedidoService;

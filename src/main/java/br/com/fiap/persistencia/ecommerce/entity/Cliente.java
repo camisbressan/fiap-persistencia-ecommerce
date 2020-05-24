@@ -36,16 +36,12 @@ public class Cliente implements Serializable {
 
 	@Column(name = "senha")
 	private String senha;
-	
+
 	@Column(name = "ddd")
 	private Integer ddd;
 
 	@Column(name = "telefone")
 	private Long telefone;
-
-	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-	//@JsonManagedReference
-	//private List<Pedido> pedidos;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Endereco> enderecos;
@@ -60,7 +56,7 @@ public class Cliente implements Serializable {
 		this.ddd = createClienteDTO.getDdd();
 		this.telefone = createClienteDTO.getTelefone();
 	}
-	
+
 	public Cliente(ClienteDTO clienteDTO) {
 		this.id = clienteDTO.getId();
 		this.nome = clienteDTO.getNome();
@@ -70,17 +66,16 @@ public class Cliente implements Serializable {
 		this.telefone = clienteDTO.getTelefone();
 		this.enderecos = converterEnderecos(clienteDTO.getEnderecos());
 	}
-	
-	
-	private List<Endereco> converterEnderecos(List<EnderecoDTO> listEndereco){
-		if(listEndereco.size() > 0) {
+
+	private List<Endereco> converterEnderecos(List<EnderecoDTO> listEndereco) {
+		if (listEndereco.size() > 0) {
 			List<Endereco> listaEnd = new ArrayList<Endereco>();
 			for (EnderecoDTO endereco : listEndereco) {
 				Endereco dto = new Endereco(endereco);
 				listaEnd.add(dto);
 			}
 			return listaEnd;
-		}else {
+		} else {
 			return new ArrayList<Endereco>();
 		}
 
@@ -142,12 +137,4 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 
-//	public List<Pedido> getPedidos() {
-//		return pedidos;
-//	}
-//
-//	public void setPedidos(List<Pedido> pedidos) {
-//		this.pedidos = pedidos;
-//	}
-	
 }
