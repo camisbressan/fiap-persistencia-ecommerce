@@ -14,7 +14,6 @@ public class CreateProdutoDTO {
 	@Size(max = 45, message = "Limite máximo de 45 caracteres.")
 	private String descricao;
 
-	@Size(max = 11, message = "Limite máximo de 11 dígitos.")
 	private Integer quantidade;
 
 	private BigDecimal preco;
