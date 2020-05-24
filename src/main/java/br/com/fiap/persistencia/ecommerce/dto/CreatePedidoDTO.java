@@ -1,17 +1,20 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatePedidoDTO {
+public class CreatePedidoDTO implements Serializable {
+
+	private static final long serialVersionUID = -3461901210133976525L;
 
 	private Integer idCliente;
-	
+
 	private BigDecimal valorTotal;
 
 	private List<ItensCarrinhoDTO> itens = new ArrayList<ItensCarrinhoDTO>();
-	
+
 	public Integer getIdCliente() {
 		return idCliente;
 	}

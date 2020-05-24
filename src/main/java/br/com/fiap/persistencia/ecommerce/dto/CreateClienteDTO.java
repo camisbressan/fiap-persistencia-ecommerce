@@ -1,11 +1,14 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CreateClienteDTO {
+public class CreateClienteDTO implements Serializable {
+
+	private static final long serialVersionUID = 546207927443713436L;
 
 	@NotNull
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
@@ -13,7 +16,7 @@ public class CreateClienteDTO {
 
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String email;
-	
+
 	private String senha;
 
 	private Integer ddd;

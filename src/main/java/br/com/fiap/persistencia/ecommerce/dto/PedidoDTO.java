@@ -1,5 +1,6 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +10,9 @@ import java.util.Set;
 import br.com.fiap.persistencia.ecommerce.entity.ItensCarrinho;
 import br.com.fiap.persistencia.ecommerce.entity.Pedido;
 
-public class PedidoDTO {
+public class PedidoDTO implements Serializable {
+
+	private static final long serialVersionUID = 734845675267121951L;
 
 	private Integer id;
 

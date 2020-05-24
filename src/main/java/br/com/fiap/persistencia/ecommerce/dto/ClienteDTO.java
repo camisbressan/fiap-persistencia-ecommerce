@@ -1,12 +1,15 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 
-public class ClienteDTO {
+public class ClienteDTO implements Serializable{
+
+	private static final long serialVersionUID = 6464550933178514561L;
 
 	private Integer id;
 

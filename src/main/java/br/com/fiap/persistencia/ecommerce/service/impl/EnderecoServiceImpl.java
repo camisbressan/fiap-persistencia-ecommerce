@@ -38,7 +38,7 @@ public class EnderecoServiceImpl implements IEnderecoService {
 	}
 	
 	@Override
-//	@Cacheable(value= "enderecoCache", key= "#id")
+//	@Cacheable(value= "clienteEnderecoCache", key= "#endereco.cliente.id")
 	public EnderecoDTO findByIdCliente(Integer idCliente, Integer id) {
 		return new EnderecoDTO(
 				enderecoRepository.findEnderecoByClienteId(idCliente, id));

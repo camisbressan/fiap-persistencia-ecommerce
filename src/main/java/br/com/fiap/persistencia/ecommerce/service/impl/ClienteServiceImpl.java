@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,44 +22,36 @@ public class ClienteServiceImpl implements IClienteService {
 	private ClienteRepository clienteRepository;
 
 	@Override
-//	@Cacheable(value= "allClientesCache", unless= "#result.size() == 0")	
+	@Cacheable(value = "allClientesCache", unless = "#result.size() == 0")
 	public List<ClienteDTO> findAll() {
 		List<Cliente> clienteList = clienteRepository.findAll();
 		return clienteList.stream().map(ClienteDTO::new).collect(Collectors.toList());
 	}
 
 	@Override
-//	@Cacheable(value= "clienteCache", key= "#id")	
+	@Cacheable(value = "clienteCache", key = "#id")
 	public ClienteDTO findById(Integer id) {
 		return new ClienteDTO(
 				clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 	}
 
 	@Override
-//	@Caching(
-//		put= { @CachePut(value= "clienteCache", key= "#cliente.id") },
-//		evict= { @CacheEvict(value= "allClientesCache", allEntries= true) }
-//	)
+//	@Caching(put = { @CachePut(value = "clienteCache", key = "#cliente.id") }, evict = {
+//			@CacheEvict(value = "allClientesCache", allEntries = true) })
 	public Cliente create(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
 	@Override
-//	@Caching(
-//		put= { @CachePut(value= "clienteCache", key= "#cliente.id") },
-//		evict= { @CacheEvict(value= "allClientesCache", allEntries= true) }
-//	)
+//	@Caching(put = { @CachePut(value = "clienteCache", key = "#cliente.id") }, evict = {
+//			@CacheEvict(value = "allClientesCache", allEntries = true) })
 	public Cliente update(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
 	@Override
-//	@Caching(
-//		evict= { 
-//			@CacheEvict(value= "clienteCache", key= "#id"),
-//			@CacheEvict(value= "allClientesCache", allEntries= true)
-//		}
-//	)
+//	@Caching(evict = { @CacheEvict(value = "clienteCache", key = "#id"),
+//			@CacheEvict(value = "allClientesCache", allEntries = true) })
 	public void delete(Integer id) {
 		clienteRepository.delete(clienteRepository.findById(id).get());
 	}

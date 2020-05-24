@@ -1,10 +1,13 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import br.com.fiap.persistencia.ecommerce.entity.Produto;
 
-public class ProdutoDTO {
+public class ProdutoDTO implements Serializable {
+
+	private static final long serialVersionUID = 3245914611701123051L;
 
 	private Integer id;
 
