@@ -55,7 +55,6 @@ public class ClienteDTO implements Serializable{
 		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
-		// this.pedidos = cliente.getPedidos();
 	}
 
 	private List<EnderecoDTO> converterEnderecos(List<Endereco> setEndereco) {

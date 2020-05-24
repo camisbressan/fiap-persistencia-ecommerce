@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,30 +24,26 @@ public class ProdutoServiceImpl implements IProdutoService {
 	private ProdutoRepository produtoRepository;
 
 	@Override
-//	@Cacheable(value = "allProdutosCache", unless = "#result.size() == 0")
+	@Cacheable(value = "allProdutosCache", unless = "#result.size() == 0")
 	public List<ProdutoDTO> findAll() {
 		List<Produto> produtosList = produtoRepository.findAll();
 		return produtosList.stream().map(ProdutoDTO::new).collect(Collectors.toList());
 	}
 
 	@Override
-//	@Cacheable(value = "produtoCache", key = "#id")
+	@Cacheable(value = "produtoCache", key = "#id")
 	public ProdutoDTO findById(Integer id) {
 		return new ProdutoDTO(
 				produtoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 	}
 
 	@Override
-//	@Caching(put = { @CachePut(value = "produtoCache", key = "#produto.id") }, evict = {
-//			@CacheEvict(value = "allProdutosCache", allEntries = true) })
 	public ProdutoDTO create(CreateProdutoDTO createProdutoDTO) {
 		Produto produto = new Produto(createProdutoDTO);
 		return new ProdutoDTO(produtoRepository.save(produto));
 	}
 
 	@Override
-//	@Caching(put = { @CachePut(value = "produtoCache", key = "#produto.id") }, evict = {
-//			@CacheEvict(value = "allProdutosCache", allEntries = true) })
 	public ProdutoDTO update(Integer id, CreateProdutoDTO createProdutoDTO) {
 		Produto produto = new Produto();
 		produto.setId(id);
@@ -56,8 +55,8 @@ public class ProdutoServiceImpl implements IProdutoService {
 	}
 
 	@Override
-//	@Caching(evict = { @CacheEvict(value = "produtoCache", key = "#id"),
-//			@CacheEvict(value = "allProdutosCache", allEntries = true) })
+	@Caching(evict = { @CacheEvict(value = "produtoCache", key = "#id"),
+			@CacheEvict(value = "allProdutosCache", allEntries = true) })
 	public void delete(Integer id) {
 		produtoRepository.deleteById(id);
 	}

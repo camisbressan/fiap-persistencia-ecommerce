@@ -57,7 +57,7 @@ public class ClienteController {
 		return ResponseEntity.ok(clienteService.create(cliente));
 	}
 
-	@PutMapping
+	@PutMapping("{id}")
 	public ResponseEntity<Cliente> update(@RequestBody Cliente cliente) {
 		return ResponseEntity.ok(clienteService.update(cliente));
 	}

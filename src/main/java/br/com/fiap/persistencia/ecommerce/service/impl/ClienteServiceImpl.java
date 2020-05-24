@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +16,7 @@ import br.com.fiap.persistencia.ecommerce.dto.ClienteDTO;
 import br.com.fiap.persistencia.ecommerce.dto.LoginDTO;
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.repository.ClienteRepository;
+import br.com.fiap.persistencia.ecommerce.repository.EnderecoRepository;
 import br.com.fiap.persistencia.ecommerce.service.IClienteService;
 
 @Service
@@ -20,6 +24,9 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	@Override
 	@Cacheable(value = "allClientesCache", unless = "#result.size() == 0")
@@ -36,22 +43,23 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-//	@Caching(put = { @CachePut(value = "clienteCache", key = "#cliente.id") }, evict = {
-//			@CacheEvict(value = "allClientesCache", allEntries = true) })
+	@Caching(put = { @CachePut(value = "clienteCache", key = "#cliente.id") }, evict = {
+			@CacheEvict(value = "allClientesCache", allEntries = true) })
 	public Cliente create(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
 	@Override
-//	@Caching(put = { @CachePut(value = "clienteCache", key = "#cliente.id") }, evict = {
-//			@CacheEvict(value = "allClientesCache", allEntries = true) })
+	@Caching(put = { @CachePut(value = "clienteCache", key = "#cliente.id") }, evict = {
+			@CacheEvict(value = "allClientesCache", allEntries = true) })
 	public Cliente update(Cliente cliente) {
+		cliente.setEnderecos(enderecoRepository.findAllByClienteId(cliente.getId()));
 		return clienteRepository.save(cliente);
 	}
 
 	@Override
-//	@Caching(evict = { @CacheEvict(value = "clienteCache", key = "#id"),
-//			@CacheEvict(value = "allClientesCache", allEntries = true) })
+	@Caching(evict = { @CacheEvict(value = "clienteCache", key = "#id"),
+			@CacheEvict(value = "allClientesCache", allEntries = true) })
 	public void delete(Integer id) {
 		clienteRepository.delete(clienteRepository.findById(id).get());
 	}
