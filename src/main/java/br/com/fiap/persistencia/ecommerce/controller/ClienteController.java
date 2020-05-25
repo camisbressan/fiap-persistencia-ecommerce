@@ -26,6 +26,7 @@ import br.com.fiap.persistencia.ecommerce.service.IClienteService;
 import br.com.fiap.persistencia.ecommerce.service.IEnderecoService;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/v1/clientes")
 public class ClienteController {
 
