@@ -1,12 +1,15 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.persistencia.ecommerce.entity.Cliente;
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 
-public class ClienteDTO {
+public class ClienteDTO implements Serializable{
+
+	private static final long serialVersionUID = 6464550933178514561L;
 
 	private Integer id;
 
@@ -14,13 +17,11 @@ public class ClienteDTO {
 
 	private String email;
 
+	private String senha;
+
 	private Integer ddd;
 
 	private Long telefone;
-
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-//	@JsonManagedReference
-//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
 	private List<EnderecoDTO> enderecos;
 
@@ -40,6 +41,7 @@ public class ClienteDTO {
 		this.id = id;
 		this.nome = createClienteDTO.getNome();
 		this.email = createClienteDTO.getEmail();
+		this.senha = createClienteDTO.getSenha();
 		this.ddd = createClienteDTO.getDdd();
 		this.telefone = createClienteDTO.getTelefone();
 		this.enderecos = createClienteDTO.getEnderecos();
@@ -49,6 +51,7 @@ public class ClienteDTO {
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();
 		this.email = cliente.getEmail();
+		this.senha = cliente.getSenha();
 		this.ddd = cliente.getDdd();
 		this.telefone = cliente.getTelefone();
 		this.enderecos = converterEnderecos(cliente.getEnderecos());
@@ -59,7 +62,7 @@ public class ClienteDTO {
 			List<EnderecoDTO> listaEnd = new ArrayList<EnderecoDTO>();
 			for (Endereco endereco : setEndereco) {
 				EnderecoDTO dto = new EnderecoDTO();
-				dto.setId(endereco.getId());				
+				dto.setId(endereco.getId());
 				dto.setLogradouro(endereco.getLogradouro());
 				dto.setNumero(endereco.getNumero());
 				dto.setComplemento(endereco.getComplemento());
@@ -97,6 +100,14 @@ public class ClienteDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Integer getDdd() {

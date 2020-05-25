@@ -1,10 +1,14 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 
-public class EnderecoDTO {
+public class EnderecoDTO implements Serializable {
+
+	private static final long serialVersionUID = 5650870173165679697L;
 
 	private Integer id;
 
@@ -22,7 +26,7 @@ public class EnderecoDTO {
 
 	private String cep;
 
-	@JsonInclude(JsonInclude.Include.NON_NULL) 
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private ClienteDTO cliente;
 
 	public EnderecoDTO() {

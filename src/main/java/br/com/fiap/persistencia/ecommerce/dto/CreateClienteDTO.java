@@ -1,11 +1,14 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CreateClienteDTO {
+public class CreateClienteDTO implements Serializable {
+
+	private static final long serialVersionUID = 546207927443713436L;
 
 	@NotNull
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
@@ -14,15 +17,11 @@ public class CreateClienteDTO {
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
 	private String email;
 
-	@Size(max = 2, message = "Limite máximo de 2 dígitos.")
+	private String senha;
+
 	private Integer ddd;
 
-	@Size(max = 9, message = "Limite máximo de 9 dígitos.")
 	private Long telefone;
-
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
-//	@JsonManagedReference
-//	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
 	private List<EnderecoDTO> enderecos;
 
@@ -40,6 +39,14 @@ public class CreateClienteDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Integer getDdd() {

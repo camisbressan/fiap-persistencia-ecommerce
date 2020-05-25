@@ -1,9 +1,13 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CreateEnderecoDTO {
+public class CreateEnderecoDTO implements Serializable {
+
+	private static final long serialVersionUID = -6998127032394843232L;
 
 	@NotNull
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")

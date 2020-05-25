@@ -1,11 +1,14 @@
 package br.com.fiap.persistencia.ecommerce.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CreateProdutoDTO {
+public class CreateProdutoDTO implements Serializable {
+
+	private static final long serialVersionUID = -5226402888690116508L;
 
 	@NotNull
 	@Size(min = 5, max = 100, message = "Obrigatório no minimo 5 caracteres e no maximo 100.")
@@ -14,7 +17,6 @@ public class CreateProdutoDTO {
 	@Size(max = 45, message = "Limite máximo de 45 caracteres.")
 	private String descricao;
 
-	@Size(max = 11, message = "Limite máximo de 11 dígitos.")
 	private Integer quantidade;
 
 	private BigDecimal preco;
