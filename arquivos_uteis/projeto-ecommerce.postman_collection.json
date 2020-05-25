@@ -10,11 +10,8 @@
 			"item": [
 				{
 					"name": "Login Cliente",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -97,36 +94,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"nome\": \"João Pereira\",\n\t\"email\": \"email@teste.com\",\n\t\"senha\": \"12345678\",\n\t\"ddd\": 11,\n\t\"telefone\": 988784433\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/v1/clientes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"clientes"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Editar Cliente",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"nome\": \"João Pereira Edicao\",\n\t\"email\": \"email@teste.com\",\n\t\"telefone\": 988784433\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/v1/clientes",

@@ -69,7 +69,7 @@ public class ClienteController {
 		clienteService.delete(id);
 	}
 
-	@GetMapping("login")
+	@PostMapping("login")
 	public ResponseEntity<ClienteDTO> login(@RequestBody LoginDTO loginDTO) {
 		return ResponseEntity.ok(clienteService.login(loginDTO));
 	}
