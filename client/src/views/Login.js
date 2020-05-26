@@ -30,12 +30,22 @@ class App extends Component {
                 'Content-Type': 'application/json'
             },
             body: body,
-        }).then((data) => {   
+        }).then((response) => response.json()
+        .then((data) => {
+            console.log(data)
+            this.setState({ result: "" })
+        })
+    ).catch(
+        error => {
+            console.log(error)
+            this.setState({ result: "Usuário não existe!" })
+        }
+    );/*.then((data) => {   
             if (data.status === 200)   
                 this.setState({ result: "" })
             else
                 this.setState({ result: "Usuário não existe!" })
-        });
+        });*/
     }
 
     handleEmailChange = (event) => {

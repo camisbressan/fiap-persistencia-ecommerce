@@ -47,8 +47,16 @@ input {
   border-radius: 2px;
 }
 
+.w100 {
+  width: 90%;
+}
+
 .w50 {
   width: 50%;
+}
+
+.mt1 {
+  margin-top: 1%;
 }
 
 .mt3 {
@@ -67,16 +75,34 @@ input {
   margin-top: 20%;
 }
 
+.mr5 {
+  margin-right: 5%;
+}
+
+.ml3 {
+  margin-left: 5%;
+}
+
 .flex-end {
   display: flex;
   justify-content: flex-end;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 .clickable {
   cursor: pointer;
 }
 
-.link {
+.text-green {
   color: #77DD77;
 }
 
