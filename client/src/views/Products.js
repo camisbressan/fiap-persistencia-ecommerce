@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import Pedidos from './Pedidos';
 import withoutProduct from '../img/product-without-photo.svg';
 import car from '../img/carr.svg';
 import './General.css';
-import './Products.css'
+import './Products.css';
 
-class App extends Component {
+class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
             products: [],
             result: "",
-            selectedProducts: 0
+            selectedProducts: 0,
+            showCarScreen: false
         };
         this.productsOnCar = [];
     };
@@ -23,7 +25,6 @@ class App extends Component {
             },
         }).then((response) => response.json()
             .then((data) => {
-                console.log(data)
                 this.setState({ products: data })
             })
         ).catch(
@@ -81,9 +82,7 @@ class App extends Component {
                 itens: productsSelected
             });
 
-
-            //passar o id do cliente
-            fetch("http://localhost:8080/v1/pedidos/cliente/1", {
+            fetch("http://localhost:8080/v1/pedidos/cliente/"+ this.props.client.id, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -91,13 +90,11 @@ class App extends Component {
                 },
                 body: body,
             }).then(function (response) {
-                if(response.ok){
-                    //chamar outra tela
-                } else {
-                    result = "Falha ao consultar o carrinho!";
-                    this.setState({ result })
+                if(!response.ok){
+                    console.log("Falha ao consultar o carrinho!");
                 }
-            }).catch(
+            }).then(()=>this.setState({ showCarScreen: true })
+            ).catch(
                 error => {
                     console.log(error)
                 }
@@ -110,45 +107,64 @@ class App extends Component {
     }
 
     render() {
-        let { products, result, selectedProducts } = this.state
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <div className="w90 flex-space-between mr5 ml5 mt3">
-                        <h1 className="text-green">Produtos disponíveis</h1>
-                        <div className="clickable" onClick={this.openCar}>
-                            <img className="flex-end car mt1" src={car} alt="logo-product" height="40px" width="40px" />
-                            <label className="text-green"><bold>{selectedProducts}</bold></label>
-                        </div>
-                    </div>
+        let { products, result, selectedProducts, showCarScreen } = this.state
 
-                    <label className="error"><b>{result}</b></label>
-                    <div className="products flex-center">
-                        {products.map((product, index) => {
-                            return (
-                                <div key={product.index} className="item">
-                                    <div className="flex-center">
-                                        <img src={withoutProduct} alt="logo-product" />
-                                    </div>
-                                    <div className={"mt5"}>
-                                        <label><b>Nome:</b> {product.nome}</label>
-                                        <label><b>Descrição:</b> {product.descricao}</label>
-                                        <label><b>Quantidade:</b> {product.quantidade}</label>
-                                        <label><b>R$:</b> {product.preco}</label>
-                                    </div>
-                                    {product.quantidade > 0 ?
-                                        <div className="mt5">
-                                            <button onClick={event => this.putOnCar(index, product)}>COMPRAR</button>
+        if (this.props.logged) {
+            return (
+                <>
+                    {showCarScreen ?
+                        <Pedidos
+                            logged={this.props.logged}
+                            client={this.props.client}
+                        /> : (
+                            <div className="App">
+                                <header className="App-header">
+                                    <div className="w90 flex-space-between mr5 ml5 mt3">
+                                        <h1 className="text-green">Produtos disponíveis</h1>
+                                        <div className="clickable" onClick={this.openCar}>
+                                            <img className="flex-end car mt1" src={car} alt="logo-product" height="40px" width="40px" />
+                                            <label className="text-green"><b>{selectedProducts}</b></label>
                                         </div>
-                                        : null}
-                                </div>
-                            );
-                        })}
-                    </div>
-                </header>
-            </div>
-        );
+                                    </div>
+
+                                    <label className="error"><b>{result}</b></label>
+                                    <div className="products flex-center">
+                                        {products.map((product, index) => {
+                                            return (
+                                                <div key={index} className="item">
+                                                    <div className="flex-center">
+                                                        <img src={withoutProduct} alt="logo-product" />
+                                                    </div>
+                                                    <div className={"mt5"}>
+                                                        <label><b>Nome:</b> {product.nome}</label>
+                                                        <label><b>Descrição:</b> {product.descricao}</label>
+                                                        <label><b>Quantidade:</b> {product.quantidade}</label>
+                                                        <label><b>R$:</b> {product.preco}</label>
+                                                    </div>
+                                                    {product.quantidade > 0 ?
+                                                        <div className="mt5">
+                                                            <button onClick={event => this.putOnCar(index, product)}>COMPRAR</button>
+                                                        </div>
+                                                        : null}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </header>
+                            </div>
+                        )}
+                </>
+            );
+        } else {
+            return (
+                <div className="App">
+                    <header className="App-header">
+                        <h1 className="error">Você precisa estar logado</h1>
+                    </header>
+                </div>
+            );
+        }
     }
 }
 
-export default App;
+export default Products;
