@@ -2,6 +2,10 @@ input {
     width: 100%;
 }
 
+label {
+    color: white;
+}
+
 .content {
     width: 50%; 
     text-align: left;

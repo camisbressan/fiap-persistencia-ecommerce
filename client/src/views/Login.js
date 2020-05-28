@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import senha from '../img/senha.svg';
-import axios from 'axios';
+import Products from './Products';
 import './General.css';
 import './Login.css'
 
-class App extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: "",
             password: "",
-            result: ""
+            logged: false,
+            result: "", 
+            client: []
         };
     };
 
     authentication = () => {
-        console.log("auth");
         let { email, password } = this.state;
 
         let body = JSON.stringify({
@@ -32,8 +33,12 @@ class App extends Component {
             body: body,
         }).then((response) => response.json()
             .then((data) => {
-                console.log(data)
-                this.setState({ result: "" })
+                if (data.id > 0) {
+                    this.setState({ logged: true, client: data })
+                } else {
+                    this.setState({ result: "Usuário não existe!" })
+                }
+
             })
         ).catch(
             error => {
@@ -44,42 +49,49 @@ class App extends Component {
     }
 
     handleEmailChange = (event) => {
-        console.log("email");
-        console.log(event.target.value);
         this.setState({ email: event.target.value });
     }
 
     handlePasswordChange = (event) => {
-        console.log("senha");
-        console.log(event.target.value);
         this.setState({ password: event.target.value });
     }
 
     render() {
+        let { logged, client } = this.state
+
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={senha} alt="logo-senha" />
-                    <div className={"content"}>
-                        <div className={"mt10"}>
-                            <label>Usuário:</label>
-                            <input type="text" placeholder={"exemplo@gmail.com"} value={this.state.email} onChange={this.handleEmailChange} />
-                        </div>
-                        <div className={"mt5"}>
-                            <label>Senha:</label>
-                            <input type="password" placeholder={"********"} value={this.state.password} onChange={this.handlePasswordChange} />
-                        </div>
+            <>
+                {logged ?
+                    <Products
+                        logged={this.state.logged}
+                        client={client}
+                    /> : (
+                        <div className="App">
+                            <header className="App-header">
 
-                        <div className="error flex-end clickable mt3">{this.state.result}</div>
+                                <img src={senha} alt="logo-senha" />
+                                <div className={"content"}>
+                                    <div className={"mt10"}>
+                                        <label>Usuário:</label>
+                                        <input type="text" placeholder={"exemplo@gmail.com"} value={this.state.email} onChange={this.handleEmailChange} />
+                                    </div>
+                                    <div className={"mt5"}>
+                                        <label>Senha:</label>
+                                        <input type="password" placeholder={"********"} value={this.state.password} onChange={this.handlePasswordChange} />
+                                    </div>
 
-                        <div className="mt20 flex-end">
-                            <button onClick={this.authentication}>ENTRAR</button>
+                                    <div className="error flex-end clickable mt3">{this.state.result}</div>
+
+                                    <div className="mt20 flex-end">
+                                        <button onClick={this.authentication}>ENTRAR</button>
+                                    </div>
+                                </div>
+                            </header>
                         </div>
-                    </div>
-                </header>
-            </div>
+                    )}
+            </>
         );
     }
 }
 
-export default App;
+export default Login;
