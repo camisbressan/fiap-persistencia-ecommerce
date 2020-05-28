@@ -7,17 +7,11 @@ import br.com.fiap.persistencia.ecommerce.entity.Endereco;
 
 public interface IEnderecoService {
 	
-	List<EnderecoDTO> findAll();
-	
 	List<EnderecoDTO> findAllByCliente(Integer idCliente);
 
-	EnderecoDTO findById(Integer id);
-	
-	EnderecoDTO findByIdCliente(Integer idCliente, Integer id);
+	EnderecoDTO create(Endereco endereco);
 
-	Endereco create(Endereco endereco);
-
-	Endereco update(Endereco endereco);
+	EnderecoDTO update(Endereco endereco);
 
 	void delete(Integer id);
 }

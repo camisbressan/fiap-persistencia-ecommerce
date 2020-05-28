@@ -92,7 +92,7 @@ public class ClienteController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
 		}
 		endereco.setCliente(new Cliente(clienteRetorno));
-		Endereco enderecoCriado = enderecoService.create(endereco);
+		EnderecoDTO enderecoCriado = enderecoService.create(endereco);
 		if (enderecoCriado != null) {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(builder.path("{id}/endereco/{endId")
@@ -103,17 +103,20 @@ public class ClienteController {
 	}
 
 	@PutMapping("{id}/enderecos/{endId}")
-	public ResponseEntity<Endereco> updateEnderecoCliente(@PathVariable("id") Integer id,
-			@PathVariable("endId") Integer endId, @RequestBody Endereco endereco) {
+	public ResponseEntity<Void> updateEnderecoCliente(@PathVariable("id") Integer id,
+			@PathVariable("endId") Integer endId, @RequestBody Endereco endereco, UriComponentsBuilder builder) {
 		ClienteDTO clienteRetorno = clienteService.findById(id);
 		if (clienteRetorno == null) {
-			return new ResponseEntity<Endereco>(HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
 		}
-		Endereco enderecoAlterado = enderecoService.update(endereco);
+		EnderecoDTO enderecoAlterado = enderecoService.update(endereco);
 		if (enderecoAlterado != null) {
-			return new ResponseEntity<Endereco>(enderecoAlterado, HttpStatus.OK);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(builder.path("{id}/endereco/{endId")
+					.buildAndExpand(clienteRetorno.getId(), enderecoAlterado.getId()).toUri());
+			return new ResponseEntity<Void>(headers, HttpStatus.OK);
 		}
-		return new ResponseEntity<Endereco>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
 	@ResponseStatus(HttpStatus.NO_CONTENT)

@@ -38,12 +38,16 @@ public class ProdutoServiceImpl implements IProdutoService {
 	}
 
 	@Override
+	@Caching(evict = { @CacheEvict(value = "allProdutosCache", allEntries = true),
+			@CacheEvict(value = "produtoCache", allEntries = true) })
 	public ProdutoDTO create(CreateProdutoDTO createProdutoDTO) {
 		Produto produto = new Produto(createProdutoDTO);
 		return new ProdutoDTO(produtoRepository.save(produto));
 	}
 
 	@Override
+	@Caching(evict = { @CacheEvict(value = "allProdutosCache", allEntries = true),
+			@CacheEvict(value = "produtoCache", allEntries = true) })
 	public ProdutoDTO update(Integer id, CreateProdutoDTO createProdutoDTO) {
 		Produto produto = new Produto();
 		produto.setId(id);

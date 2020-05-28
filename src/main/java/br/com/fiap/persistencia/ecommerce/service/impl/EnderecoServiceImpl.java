@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.persistencia.ecommerce.dto.EnderecoDTO;
@@ -18,67 +21,28 @@ public class EnderecoServiceImpl implements IEnderecoService {
 	private EnderecoRepository enderecoRepository;
 
 	@Override
-//	@Cacheable(value= "allEnderecosCache", unless= "#result.size() == 0")
-	public List<EnderecoDTO> findAll() {
-		List<Endereco> endList = enderecoRepository.findAll();
-		return endList.stream().map(EnderecoDTO::new).collect(Collectors.toList());
-	}
-	
-	@Override
-//	@Cacheable(value= "allClienteEnderecosCache", key= "#cliente.id", unless= "#result.size() == 0")
+	@Cacheable(value = "allClienteEnderecosCache", key = "#idCliente", unless = "#result.size() == 0")
 	public List<EnderecoDTO> findAllByCliente(Integer idCliente) {
 		List<Endereco> endList = enderecoRepository.findAllByClienteId(idCliente);
 		return endList.stream().map(EnderecoDTO::new).collect(Collectors.toList());
 	}
 
 	@Override
-//	@Cacheable(value= "enderecoCache", key= "#id")
-	public EnderecoDTO findById(Integer id) {
-		return new EnderecoDTO(enderecoRepository.findById(id).get());
+	@CacheEvict(cacheNames = "allClienteEnderecosCache", allEntries = true)
+	public EnderecoDTO create(Endereco endereco) {
+		return new EnderecoDTO(enderecoRepository.save(endereco));
 	}
-	
+
 	@Override
-//	@Cacheable(value= "clienteEnderecoCache", key= "#endereco.cliente.id")
-	public EnderecoDTO findByIdCliente(Integer idCliente, Integer id) {
-		return new EnderecoDTO(
-				enderecoRepository.findEnderecoByClienteId(idCliente, id));
+	@CacheEvict(cacheNames = "allClienteEnderecosCache", allEntries = true)
+	public EnderecoDTO update(Endereco endereco) {
+		return new EnderecoDTO(enderecoRepository.save(endereco));
 	}
 
-	@Override	
-//	@Caching(
-//		put= { @CachePut(value= "enderecoCache", key= "#endereco.id") },
-//				evict= { 
-//						@CacheEvict(value= "clienteCache", key="#endereco.cliente.id"),
-//						@CacheEvict(value= "allClientesCache", allEntries= true),
-//						@CacheEvict(value= "allEnderecosCache", allEntries= true)
-//				}
-//	)
-	public Endereco create(Endereco endereco) {
-		return enderecoRepository.save(endereco);
-	}
-
-	@Override	
-//	@Caching(
-//		put= { @CachePut(value= "enderecoCache", key= "#endereco.id") },
-//		evict= { 
-//				@CacheEvict(value= "clienteCache", key="#endereco.cliente.id"),
-//				@CacheEvict(value= "allClientesCache", allEntries= true),
-//				@CacheEvict(value= "allEnderecosCache", allEntries= true)
-//		}
-//	)
-	public Endereco update(Endereco endereco) {
-		return enderecoRepository.save(endereco);
-	}
-
-	@Override	
-//	@Caching(
-//		evict= { 
-//			@CacheEvict(value= "enderecoCache", key= "#endereco.id"),
-//			@CacheEvict(value= "clienteCache", key="#endereco.cliente.id"),		
-//			@CacheEvict(value= "allClientesCache", allEntries= true),
-//			@CacheEvict(value= "allEnderecosCache", allEntries= true)
-//		}
-//	)
+	@Override
+	@Caching(evict = { @CacheEvict(value = "clienteCache", allEntries = true),
+			@CacheEvict(value = "allClientesCache", allEntries = true),
+			@CacheEvict(value = "allClienteEnderecosCache", allEntries = true) })
 	public void delete(Integer id) {
 		enderecoRepository.delete(enderecoRepository.findById(id).get());
 	}
