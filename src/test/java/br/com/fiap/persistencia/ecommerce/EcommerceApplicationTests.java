@@ -1,10 +1,11 @@
-package com.bezkoder.spring.datajpa;
+package br.com.fiap.persistencia.ecommerce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 @SpringBootTest
-class SpringBootDataJpaApplicationTests {
+class EcommerceApplicationTests {
 
 	@Test
 	void contextLoads() {
