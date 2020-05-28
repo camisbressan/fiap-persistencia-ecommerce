@@ -69,9 +69,9 @@ class Pedidos extends Component {
                     <h1 className="text-green">Compra Finalizada</h1>
                     <div className="card row">
                         <h6 className="text-green">Dados da entrega:</h6>
-                        <label className="mt1">Olá <b>{client.nome}</b>, realizaremos a entrega no endereço abaixo:</label>
-                        <label className="mt1">{endereco.logradouro}, {endereco.numero} - {endereco.bairro} - {endereco.cidade}, {endereco.estado} - {endereco.cep}</label>
-                        <label className="mt1">Enviaremos mais informações para o e-mail {client.email}</label>
+                        <label className="mt1 text-black">Olá <b>{client.nome}</b>, realizaremos a entrega no endereço abaixo:</label>
+                        <label className="mt1 text-black">{endereco.logradouro}, {endereco.numero} - {endereco.bairro} - {endereco.cidade}, {endereco.estado} - {endereco.cep}</label>
+                        <label className="mt1 text-black">Enviaremos mais informações para o e-mail {client.email}</label>
                     </div>
 
                 </header>

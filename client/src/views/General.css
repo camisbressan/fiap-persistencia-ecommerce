@@ -110,6 +110,9 @@ input {
   color: #77DD77;
 }
 
+.text-black {
+  color: #000;
+}
 .error {
   color: red;
 }

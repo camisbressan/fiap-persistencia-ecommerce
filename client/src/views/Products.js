@@ -136,10 +136,10 @@ class Products extends Component {
                                                         <img src={withoutProduct} alt="logo-product" />
                                                     </div>
                                                     <div className={"mt5"}>
-                                                        <label><b>Nome:</b> {product.nome}</label>
-                                                        <label><b>Descrição:</b> {product.descricao}</label>
-                                                        <label><b>Quantidade:</b> {product.quantidade}</label>
-                                                        <label><b>R$:</b> {product.preco}</label>
+                                                        <label className="text-black"><b>Nome:</b> {product.nome}</label>
+                                                        <label className="text-black"><b>Descrição:</b> {product.descricao}</label>
+                                                        <label className="text-black"><b>Quantidade:</b> {product.quantidade}</label>
+                                                        <label className="text-black"><b>R$:</b> {product.preco}</label>
                                                     </div>
                                                     {product.quantidade > 0 ?
                                                         <div className="mt5">
