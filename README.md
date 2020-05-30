@@ -4,9 +4,11 @@
 
 Tecnologias necessárias:
 
-  1- Para executar o projeto é necessário ter o JRE 8 ou JDK 8 instalado.
+  1 - Para executar o projeto é necessário ter o JRE 8 ou JDK 8 instalado.
   
-  2- Utilizar uma IDE para execução. (Eclipse é recomendado)
+  2 - Utilizar uma IDE para execução. (Eclipse é recomendado)
+  
+  3 - Necessário ter MySQL instalado.
   
 ---
 
