@@ -22,7 +22,10 @@ Tecnologias necessárias:
 
 ## Instalação e execução do projeto
 
-`$ git clone https://github.com/camisbressan/fiap-persistencia-ecommerce.git`
+
+```sh
+$ git clone https://github.com/camisbressan/fiap-persistencia-ecommerce.git
+```
 
 Após baixar o projeto, acessar a pasta `fiap-persistencia-ecommerce/client` e executar os comandos:
 
