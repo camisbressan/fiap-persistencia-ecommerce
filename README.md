@@ -51,4 +51,32 @@ ou
 Após iniciar o front e o redis, no pacote `br.com.fiap.persistencia.ecommerce` existe um arquivo chamado `EcommerceApplication.java`. Clique com o botão direito e execute em Run.
 
 
+----
 
+## Funcionalidades Postman
+
+![Postman](arquivos_uteis/funcionalidades.png)
+
+----
+
+## Documentação Swagger
+
+![Postman](arquivos_uteis/swagger.png)
+
+----
+
+## Tela Login
+
+![Postman](arquivos_uteis/login.png)
+
+## Tela de Seleção de Produtos
+
+![Postman](arquivos_uteis/produtos.png)
+
+## Tela de Carrinho de Compras
+
+![Postman](arquivos_uteis/carrinho.png)
+
+## Tela de Finalização de Pedidos
+
+![Postman](arquivos_uteis/finalizado.png)
