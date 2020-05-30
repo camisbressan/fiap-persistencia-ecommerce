@@ -39,9 +39,9 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `id` int NOT NULL AUTO_INCREMENT,
   `ddd` int DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `senha` varchar(255) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `nome` varchar(100) DEFAULT NULL,
+  `senha` varchar(8) DEFAULT NULL,
   `telefone` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -65,13 +65,13 @@ DROP TABLE IF EXISTS `endereco`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `endereco` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `bairro` varchar(255) DEFAULT NULL,
-  `cep` varchar(255) DEFAULT NULL,
-  `cidade` varchar(255) DEFAULT NULL,
-  `complemento` varchar(255) DEFAULT NULL,
-  `estado` varchar(255) DEFAULT NULL,
-  `logradouro` varchar(255) DEFAULT NULL,
-  `numero` varchar(255) DEFAULT NULL,
+  `bairro` varchar(100) DEFAULT NULL,
+  `cep` varchar(8) DEFAULT NULL,
+  `cidade` varchar(100) DEFAULT NULL,
+  `complemento` varchar(50) DEFAULT NULL,
+  `estado` varchar(100) DEFAULT NULL,
+  `logradouro` varchar(200) DEFAULT NULL,
+  `numero` varchar(50) DEFAULT NULL,
   `cliente_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK8s7ivtl4foyhrfam9xqom73n9` (`cliente_id`),
@@ -128,7 +128,7 @@ CREATE TABLE `pedido` (
   `id` int NOT NULL AUTO_INCREMENT,
   `data_compra` datetime DEFAULT NULL,
   `id_cliente` int DEFAULT NULL,
-  `valor_total` decimal(19,2) DEFAULT NULL,
+  `valor_total` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -152,9 +152,9 @@ DROP TABLE IF EXISTS `produto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produto` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(255) DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `preco` decimal(19,2) DEFAULT NULL,
+  `descricao` varchar(100) DEFAULT NULL,
+  `nome` varchar(80) DEFAULT NULL,
+  `preco` decimal(5,2) DEFAULT NULL,
   `quantidade` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
