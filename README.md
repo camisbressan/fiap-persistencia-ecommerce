@@ -19,7 +19,6 @@ Tecnologias necessárias:
   - MySQL
   - Redis
   - Swagger (Documentação)
-  - Docker e Docker Compose
   
 ----
 
